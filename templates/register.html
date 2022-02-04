@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form id="register" action="/register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" id="username" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Retype Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+        <script>
+            /*! The following script courtesy of cs50.stackexchange users 'booklvr' and 'Blauelf'.*/
+            $('document').ready(function(){
+                $('form').on('submit', function(e){
+                    e.preventDefault();
+                    var username = $("#username").val();
+                    $.get('/check?username=' + username, function(response){
+                        if (response == false){
+                            alert('username taken');
+                            document.getElementById('register').reset();
+                            $('#username').focus();
+                        }
+                        else {
+                            (document).getElementById('register').submit();
+                        }
+                    });
+                });
+            });
+        </script>
+    </form>
+{% endblock %}

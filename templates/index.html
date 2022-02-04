@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+    <table class="table table-hover" id="table">
+        <thead class="text-white bg-dark">
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Company</th>
+                <th scope="col">Shares Owned</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Holding Value</th>
+                <th scope="col">Cash Balance</th>
+                <th scope="col">Portfolio Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for symbol, company, share in symbols_companies_shares %}
+                {% if share > 0 %}
+            <tr>
+                <th scope="row">{{ symbol.get('symbol').upper() }}</th>
+                <td>{{ company.get('company') }}</td>
+                <td>{{ share }}</td>
+                <td>{{ '%0.2f' | format(lookup(symbol.get('symbol'))['price']) }}</td>
+                <td>{{ '%0.2f' | format(share * lookup(symbol.get('symbol'))['price']) }}</td>
+                <td class="text-muted font-weight-lighter">-</td>
+                <td class="text-muted font-weight-lighter">-</td>
+                {% endif %}
+            {% endfor %}
+            </tr>
+            <tr class="text-white bg-dark">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                {% for c in cash %}
+                <td>{{ '%0.2f'|format(c.get('cash')) }}</td>
+                <td class="font-weight-bold" id="val"></td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <span id="val"></span>
+
+    <script>
+        var table = document.getElementById("table");
+        var sumVal = 0;
+        var j = 0;
+        for(var i = 1; i < table.rows.length - 1; i++)
+        {
+            sumVal = sumVal + parseFloat(table.rows[i].cells[4].innerHTML);
+            j = i;    
+        }
+        sumVal = sumVal + parseFloat(table.rows[j + 1].cells[5].innerHTML);
+        document.getElementById("val").innerHTML = sumVal.toFixed(2);
+
+    </script>
+{% endblock %}
