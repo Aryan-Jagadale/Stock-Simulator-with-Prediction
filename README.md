@@ -5,8 +5,6 @@
 https://algotrading101.com/learn/iex-api-guide/#:~:text=To%20create%20an%20account%20with,to%20generate%20your%20secret%20key. --- Use this link for set up of api key in your Computer.
 
 
-C:\Users\dell\Downloads\finalcpy\finalcpy\images\Screenshot (262).png
 
---
 
 🙏 If you find this repo helpful then don't forget to give a start ❇️ to this repository. :)
